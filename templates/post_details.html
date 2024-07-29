@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+    <h1>{{ post.title }}</h1>
+    <p>{{ post.content }}</p>
+    <div class="post-actions">
+        <form method="POST" action="{{ url_for('like_post', post_id=post._id) }}" style="display: inline;">
+            <button type="submit">Like</button>  ({{ post.likes }})
+        </form>
+        <form method="POST" action="{{ url_for('dislike_post', post_id=post._id) }}" style="display: inline;">
+            <button type="submit">Dislike</button> ({{ post.dislikes }})
+        </form>
+    </div>
+    <h2>Comments</h2>
+    <div class="comments">
+        {% for comment in comments %}
+            <div class="comment">
+                <p>{{ comment.content }}</p>
+            </div>
+        {% else %}
+            <p>No comments yet. Be the first to comment!</p>
+        {% endfor %}
+    </div>
+    <h3>Add a Comment</h3>
+    <form method="POST" action="{{ url_for('add_comment', post_id=post._id) }}">
+        <textarea name="content" rows="2" required></textarea>
+        <button type="submit">Comment</button>
+    </form>
+{% endblock %}

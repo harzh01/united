@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+    <h1>WELCOME TO BLOGGERS UNITED</h1>
+    <div class="posts">
+        {% for post in posts %}
+            <div class="post">
+                <h3>{{ post.title }}</h3>
+                <p>{{ post.content[:100] }}...</p>
+                <a href="{{ url_for('post_details', post_id=post._id) }}">Read more</a>
+                <div class="post-actions">
+                    <form method="POST" action="{{ url_for('like_post', post_id=post._id) }}" style="display: inline;">
+                        <button type="submit">Like</button> ({{ post.likes }})
+                    </form>
+                    <form method="POST" action="{{ url_for('dislike_post', post_id=post._id) }}" style="display: inline;">
+                        <button type="submit">Dislike</button> ({{ post.dislikes }})
+                    </form>
+                </div>
+            </div>
+        {% else %}
+            <p>No posts available.</p>
+        {% endfor %}
+    </div>
+{% endblock %}
