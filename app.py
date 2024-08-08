@@ -1,7 +1,10 @@
-from flask import Flask, render_template, request, redirect, url_for, session, flash
+from flask import Flask, render_template, request, redirect, url_for, session, flash, Response
 from flask_bcrypt import Bcrypt
 from pymongo import MongoClient
+import gridfs
 from bson.objectid import ObjectId
+from werkzeug.utils import secure_filename
+import os
 
 app = Flask(__name__)
 app.secret_key = "d5fb8c4fa8bd46638dadc4e751e0d68d"  
@@ -13,6 +16,14 @@ db = client['blog_database']
 users_collection = db['users']
 posts_collection = db['posts']
 comments_collection = db['comments']
+fs = gridfs.GridFS(db)
+
+# Allowed file extensions for profile pictures
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
+
+def allowed_file(filename):
+    """Check if the file extension is allowed."""
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 @app.route('/')
 def index():
@@ -57,6 +68,13 @@ def dashboard():
     if 'user_id' in session:
         user_id = session['user_id']
         posts = list(posts_collection.find({'user_id': user_id}))
+        users = {user['_id']: user for user in users_collection.find()}  # Fetch all users
+
+        # Add profile picture URLs to posts
+        for post in posts:
+            user = users.get(ObjectId(post['user_id']))
+            post['profile_pic_id'] = user.get('profile_pic_id') if user else None
+
         return render_template('dashboard.html', posts=posts)
 
     flash('Please login to access the dashboard!', 'danger')
@@ -179,11 +197,31 @@ def profile():
 
     if request.method == 'POST':
         username = request.form['username']
-        users_collection.update_one({'_id': ObjectId(session['user_id'])}, {'$set': {'username': username}})
+        profile_pic = request.files.get('profile_pic')
+
+        if profile_pic:
+            # Store the profile picture in GridFS
+            fs = gridfs.GridFS(db)
+            profile_pic_id = fs.put(profile_pic, filename=profile_pic.filename)
+            users_collection.update_one(
+                {'_id': ObjectId(session['user_id'])},
+                {'$set': {'username': username, 'profile_pic_id': profile_pic_id}}
+            )
+        else:
+            users_collection.update_one(
+                {'_id': ObjectId(session['user_id'])},
+                {'$set': {'username': username}}
+            )
         flash('Profile updated successfully!', 'success')
         return redirect(url_for('profile'))
 
     return render_template('profile.html', user=user)
+
+
+@app.route('/profile_pic/<file_id>')
+def profile_pic(file_id):
+    file = fs.get(ObjectId(file_id))
+    return Response(file.read(), mimetype=file.content_type)
 
 if __name__ == '__main__':
     app.run(debug=True)

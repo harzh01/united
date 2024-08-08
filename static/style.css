@@ -1,18 +1,18 @@
 /* General Styles */
 
 body {
-    font-family: 'Helvetica Neue', sans-serif;
+    font-family: 'Arial', sans-serif; /* Changed to Arial for a cleaner look */
     margin: 0;
     padding: 0;
-    background-color: #f7f9fc; /* Light background for a clean look */
-    color: #444;
+    background-color: #e0e4e8; /* Slightly darker background */
+    color: #333; /* Darker text color for better readability */
 }
 
 h1, h2, h3 {
-    color: #1a1a1a; /* Dark grey for headings */
+    color: #1c1c1c; /* Slightly darker grey for headings */
     text-align: center;
     margin-bottom: 20px;
-    font-family: 'Montserrat', sans-serif; /* Modern font for headings */
+    font-family: 'Roboto', sans-serif; /* Changed to Roboto for a modern look */
 }
 
 h1 {
@@ -31,11 +31,11 @@ h3 {
 /* Navigation */
 
 nav {
-    background-color: #1a73e8; /* Bright blue for nav */
+    background-color: #333; /* Darker background for nav */
     color: #ffffff; /* Light text color */
     padding: 15px 20px;
-    font-family: 'Helvetica Neue', sans-serif;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    font-family: 'Arial', sans-serif;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25); /* Stronger shadow for depth */
 }
 
 nav ul {
@@ -70,7 +70,7 @@ nav ul li:hover {
 }
 
 nav ul li a:hover {
-    background-color: #155ab2;
+    background-color: #444;
     color: #ffffff;
 }
 
@@ -90,7 +90,12 @@ nav ul li a:hover {
     padding: 25px;
     max-width: 900px;
     margin: 0 auto;
+    background-color: #ffffff; /* Light background for main content */
+    border-radius: 5px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
+
+/* Flash Messages */
 
 .flash {
     padding: 15px;
@@ -107,6 +112,92 @@ nav ul li a:hover {
 .flash.danger {
     background-color: #dc3545;
     color: white;
+}
+
+/* Profile Container */
+.profile-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Profile Form */
+.profile-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.profile-form label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.profile-form input[type="text"],
+.profile-form input[type="file"] {
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+.profile-form button {
+    background-color: #333;
+    color: #fff;
+    padding: 12px 25px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.profile-form button:hover {
+    background-color: #555;
+    transform: translateY(-2px);
+}
+
+/* Profile Picture */
+.profile-pic {
+    display: flex;
+    justify-content: center; /* Center the image horizontally */
+    margin-top: 20px;
+}
+
+.profile-pic img {
+    max-width: 200px; /* Set a max-width */
+    height: auto; /* Keep the aspect ratio of the image */
+    border: 1px solid #ddd;
+    border-radius: 4px; /* Optional: adds rounded corners to the image */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: adds a subtle shadow around the image */
+}
+
+.profile-pic p {
+    font-style: italic;
+    color: #666;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .profile-container {
+        padding: 15px;
+    }
+
+    .profile-form input[type="text"],
+    .profile-form input[type="file"] {
+        font-size: 1em;
+    }
+
+    .profile-form button {
+        padding: 10px 20px;
+        font-size: 1em;
+    }
+
+    .profile-pic img {
+        max-width: 150px;
+    }
 }
 
 /* Form Styles */
@@ -130,7 +221,7 @@ form label {
     display: block;
     margin-bottom: 10px;
     font-weight: bold;
-    color: #1a1a1a;
+    color: #1c1c1c; /* Slightly darker grey for labels */
 }
 
 form input[type="text"],
@@ -147,13 +238,13 @@ form textarea {
 form input[type="text"]:focus,
 form input[type="password"]:focus,
 form textarea:focus {
-    border-color: #1a73e8;
-    box-shadow: 0 0 5px rgba(26, 115, 232, 0.5);
+    border-color: #333; /* Darker border on focus */
+    box-shadow: 0 0 5px rgba(51, 51, 51, 0.5);
     outline: none;
 }
 
 form button {
-    background-color: #1a73e8;
+    background-color: #333; /* Darker button color */
     color: #ffffff;
     border: none;
     padding: 12px 25px;
@@ -164,7 +255,7 @@ form button {
 }
 
 form button:hover {
-    background-color: #155ab2;
+    background-color: #555;
     transform: translateY(-2px);
 }
 
@@ -181,89 +272,136 @@ form button:hover {
 
 /* Posts and Comments */
 
-.posts, .comments {
-    margin-bottom: 30px;
-}
-
+/* General Card Styling */
 .post, .comment {
     background-color: #ffffff;
-    padding: 20px;
-    border-radius: 5px;
-    margin-bottom: 20px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px; /* Spacing inside the card */
+    border-radius: 8px; /* Rounded corners for the card */
+    margin-bottom: 30px; /* Space between cards */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Shadow effect for depth */
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    max-width: 900px; /* Max width of the card */
+    width: 100%; /* Full width up to max-width */
+    margin: 0 auto; /* Center the card horizontally */
 }
 
+/* Hover Effects for Cards */
 .post:hover, .comment:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transform: translateY(-5px); /* Lift effect on hover */
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2); /* Enhanced shadow */
 }
 
+/* Post Header */
+.post-header {
+    text-align: center; /* Center the content */
+    margin-bottom: 10px; /* Space between post header and content */
+}
+
+/* Post Title */
+.post-title {
+    font-size: 0.9em; /* Slightly smaller font size for the title */
+    margin: 0; /* Remove default margin */
+}
+
+/* Post and Comment Links */
+.post a {
+    color: #1a73e8; /* Link color */
+    text-decoration: none; /* Remove underline */
+    font-weight: bold; /* Bold text */
+    transition: color 0.3s ease, background-color 0.3s ease, padding 0.3s ease; /* Smooth transitions */
+    border-bottom: 2px solid transparent; /* Space for underline effect */
+    padding-bottom: 4px; /* Space for underline */
+    margin-right: 20px; /* Margin to the right of the link */
+}
+
+.post a:hover {
+    color: #155ab2; /* Darker shade on hover */
+    background-color: rgba(26, 115, 232, 0.1); /* Light background on hover */
+    border-bottom: 2px solid #155ab2; /* Underline effect on hover */
+    transform: translateY(-1px); /* Lift effect on hover */
+}
+
+/* Post Actions */
 .post-actions {
-    margin-left: 10px;
-    margin-top: 15px;
+    margin-top: 20px; /* Space above actions */
     display: flex;
     justify-content: flex-start;
-    gap: 15px;
-    font-weight: bold;
+    gap: 15px; /* Space between actions */
     align-items: center;
 }
 
+/* Form and Button Styling */
 .post-actions form {
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 10px; /* Space between form elements */
 }
 
 .post-actions button {
-    background-color: #1a73e8;
+    background-color: #4a4a4a; /* Button color */
     color: #ffffff;
-    padding: 10px 20px;
-    border-radius: 5px;
+    padding: 6px 12px; /* Padding inside button */
+    border-radius: 4px; /* Rounded corners for button */
     border: none;
     cursor: pointer;
     font-weight: bold;
+    font-size: 0.85em; /* Font size for button */
     transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .post-actions button:hover {
-    background-color: #155ab2;
-    transform: translateY(-2px);
+    background-color: #666; /* Darker button color on hover */
+    transform: translateY(-2px); /* Lift effect on hover */
 }
 
+/* Additional Text Styling */
 .post-actions span {
-    font-size: 0.9em;
-    color: #666;
+    font-size: 0.95em; /* Font size for additional text */
+    color: #666; /* Text color */
 }
 
+/* Button Styling */
 .button {
     display: inline-block;
-    background-color: #1a73e8;
+    background-color: #333; /* Dark button color */
     color: #fff;
-    padding: 12px 25px;
-    border-radius: 3px;
+    padding: 14px 30px; /* Padding inside button */
+    margin: 20px 0; /* Margin around button */
+    border-radius: 6px; /* Rounded corners for button */
     text-decoration: none;
     font-weight: bold;
-    transition: background-color 0.3s ease, transform 0.3s ease;
+    font-size: 1em; /* Font size for button */
+    text-transform: uppercase; /* Uppercase text */
+    letter-spacing: 0.5px; /* Letter spacing */
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow effect for button */
 }
 
 .button:hover {
-    background-color: #155ab2;
-    transform: translateY(-2px);
+    background-color: #555; /* Lighter color on hover */
+    transform: translateY(-2px); /* Lift effect on hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
 }
 
+/* Responsive Design */
 @media (max-width: 768px) {
-    .post, .comment {
-        padding: 15px;
-    }
-
-    .post-actions {
-        flex-direction: column;
-    }
-
     .button {
-        width: 100%;
-        padding: 12px;
-        text-align: center;
+        width: 100%; /* Full width on small screens */
+        padding: 15px; /* Padding inside button */
+        text-align: center; /* Center-align text */
+        font-size: 1.1em; /* Larger font size */
+    }
+
+    .post, .comment {
+        padding: 15px; /* Adjusted padding for mobile view */
+        margin-bottom: 20px; /* Reduced margin between cards on small screens */
+    }
+
+    .post-header {
+        text-align: center; /* Center-align post header content */
+    }
+
+    .profile-pic img {
+        max-width: 150px; /* Adjusted size for mobile view */
     }
 }
