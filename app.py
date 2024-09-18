@@ -11,9 +11,9 @@ app = Flask(__name__)
 app.secret_key = "d5fb8c4fa8bd46638dadc4e751e0d68d"  
 bcrypt = Bcrypt(app)
 
-uri = "mongodb+srv://harzh0110:MVfGJaTEvhaTkHvA@cluster0.r3b6e.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 
-# MongoDB setup
+uri = "mongodb+srv://harzh0110:1hzrX4Iu7LLLFQEW@blog.n1wcn.mongodb.net/?retryWrites=true&w=majority&appName=blog"
+# Create a new client and connect to the server
 client = MongoClient(uri, server_api=ServerApi('1'))
 # Send a ping to confirm a successful connection
 try:
