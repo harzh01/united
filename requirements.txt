@@ -1,6 +1,3 @@
 Flask
 Flask-Bcrypt
 pymongo
-gridfs
-werkzeug
-bson
