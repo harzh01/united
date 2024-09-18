@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash, Response
 from flask_bcrypt import Bcrypt
 from pymongo import MongoClient
+from pymongo.server_api import ServerApi
 import gridfs
 from bson.objectid import ObjectId
 from werkzeug.utils import secure_filename
@@ -10,8 +11,16 @@ app = Flask(__name__)
 app.secret_key = "d5fb8c4fa8bd46638dadc4e751e0d68d"  
 bcrypt = Bcrypt(app)
 
+uri = "mongodb+srv://harzh0110:MVfGJaTEvhaTkHvA@cluster0.r3b6e.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+
 # MongoDB setup
-client = MongoClient('mongodb://localhost:27017/')
+client = MongoClient(uri, server_api=ServerApi('1'))
+# Send a ping to confirm a successful connection
+try:
+    client.admin.command('ping')
+    print("Pinged your deployment. You successfully connected to MongoDB!")
+except Exception as e:
+    print(e)
 db = client['blog_database']
 users_collection = db['users']
 posts_collection = db['posts']
